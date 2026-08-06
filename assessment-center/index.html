@@ -4489,7 +4489,7 @@ body.reference-report-active #reportContent {
   display: flex;
   min-width: 0;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 8px;
   margin-bottom: 7px;
 }
@@ -4511,6 +4511,41 @@ body.reference-report-active #reportContent {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Card polish: keep assessment status in one predictable place. */
+.assessment-card-status-row {
+  display: flex;
+  align-items: center;
+  min-height: 22px;
+  margin: 2px 0 8px;
+}
+
+.assessment-card-status-row .status-pill {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.assessment-visual-kmi {
+  display: grid;
+  place-items: center;
+  background: transparent;
+}
+
+.assessment-visual-kmi span {
+  position: static;
+  color: #e83f7a;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+.assessment-visual-kmi i,
+.assessment-visual-kmi b {
+  display: none;
 }
 
 .screenshot-title-intro {
@@ -6074,8 +6109,7 @@ function renderCoreAssessmentCard() {
         <div class="assessment-card-head">
           <h3>${coreAssessment.title}</h3>
         </div>
-        <div class="assessment-card-meta-row">
-          <p class="muted">改良 Kupperman 量表 · ${coreAssessment.minutes}</p>
+        <div class="assessment-card-status-row">
           <span class="tag status-pill ${report ? "status-complete" : "status-pending"}">${statusText}</span>
         </div>
         <p class="assessment-effect">${coreAssessment.effect}</p>
@@ -6158,8 +6192,7 @@ function renderAssessmentCards(container, items) {
             <div class="assessment-card-head">
               <h3>${item.title}</h3>
             </div>
-            <div class="assessment-card-meta-row">
-              <p class="muted">${item.category} · ${item.minutes}</p>
+            <div class="assessment-card-status-row">
               ${
                 status.text
                   ? `<span class="tag status-pill ${status.className}">
